@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Entities;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,10 +10,17 @@ public class GameController : MonoBehaviour {
     public float spawnWait;
     public float startWait;
 
+    public GUIText scoreText;
+
     private void Start()
     {
         StartCoroutine(SpawnWaves());
     }
+
+    private void Update()
+    {
+        UpdateScore();
+    }    
 
     IEnumerator SpawnWaves()
     {
@@ -24,5 +32,10 @@ public class GameController : MonoBehaviour {
             Instantiate(hazard, spawnPosition, spawnRotation);
             yield return new WaitForSeconds(spawnWait);
         }
+    }
+
+    void UpdateScore()
+    {
+        scoreText.text = "Score: " + ScoreFactory.GetScore().GetPoints();
     }
 }

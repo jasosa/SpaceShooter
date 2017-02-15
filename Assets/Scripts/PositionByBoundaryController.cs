@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Helpers;
+﻿using Assets.Scripts.Entities;
 using UnityEngine;
 
 public class PositionByBoundaryController : MonoBehaviour {
