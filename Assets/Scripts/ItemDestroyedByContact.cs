@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class EnemyDestroyByContact : MonoBehaviour
+public class  ItemDestroyedByContact : MonoBehaviour
 {
 	[SerializeField]
-	public UnityEvent onEnemyDestroyed;
+	public UnityEvent onItemDestroyed;
 
-	public EnemyDestroyByContact()
+	public ItemDestroyedByContact()
 	{
-		onEnemyDestroyed = new UnityEvent ();
+		onItemDestroyed = new UnityEvent ();
 	}
 
 	void OnTriggerEnter(Collider other)
@@ -18,7 +18,7 @@ public class EnemyDestroyByContact : MonoBehaviour
 			Destroy(gameObject);
 
 			if (other.tag == "Bolt") {
-				onEnemyDestroyed.Invoke ();
+				onItemDestroyed.Invoke ();
 				//ScoreFactory.GetScore().AddScore();
 			}
 		}

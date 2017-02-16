@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DestroyByContact : MonoBehaviour
+public class PlayerDestroyedByContact : MonoBehaviour
 {
 	[SerializeField]
 	public UnityEvent onPlayerDestroyed;
 
-	public DestroyByContact()
+	public PlayerDestroyedByContact()
 	{
 		onPlayerDestroyed = new UnityEvent ();
 	}
@@ -18,9 +18,8 @@ public class DestroyByContact : MonoBehaviour
     {
         if (other.tag != "Boundary")
         {   
-			Debug.Log ("Destroyed object");
             Destroy(gameObject);
 			onPlayerDestroyed.Invoke ();
-        }
+		}
     }
 }

@@ -2,26 +2,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class GameController : MonoBehaviour {
+public class AsteroidsGenerator : MonoBehaviour {
 
-	private bool gameOver = false;
     public GameObject hazard;
     public Vector3 spawnValues;
     public float spawnWait;
     public float startWait;
 
-    public GUIText scoreText;
+	[SerializeField]
+	public UnityEvent onAsteroidKilled = new UnityEvent();
 
-    private void Start()
+    void Start()
     {
         StartCoroutine(SpawnWaves());
     }
-
-    private void Update()
-    {
-        UpdateScore();
-    }    
 
     IEnumerator SpawnWaves()
     {
@@ -31,28 +27,15 @@ public class GameController : MonoBehaviour {
             Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
             Quaternion spawnRotation = Quaternion.identity;
             var myHazard = Instantiate(hazard, spawnPosition, spawnRotation);
-			var enemyScript = myHazard.GetComponent("EnemyDestroyByContact") as EnemyDestroyByContact;
-			enemyScript.onEnemyDestroyed.AddListener (new UnityEngine.Events.UnityAction(AddScore));
+			var enemyScript = myHazard.GetComponent("ItemDestroyedByContact") as ItemDestroyedByContact;
+			enemyScript.onItemDestroyed.AddListener (new UnityEngine.Events.UnityAction(ThrowAsteroidKilledEvent));
             yield return new WaitForSeconds(spawnWait);
         }
     }
 
-	private void AddScore()
+	private void ThrowAsteroidKilledEvent()
 	{
-		ScoreFactory.GetScore ().AddScore ();
+		Debug.Log ("Asteroid killed");
+		onAsteroidKilled.Invoke ();
 	}
-
-	public void GameEnds()
-	{
-		gameOver = true;
-	}
-
-    void UpdateScore()
-    {
-		if (gameOver) {
-			scoreText.text = "Game Over";
-		} else {
-			scoreText.text = "Score: " + ScoreFactory.GetScore ().GetPoints ();
-		}
-    }
 }
