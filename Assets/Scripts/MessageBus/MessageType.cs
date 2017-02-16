@@ -1,12 +1,10 @@
 ﻿using System;
 
-namespace AssemblyCSharp
+namespace Assets.Scripts.MessageBus
 {
-	public class MessageType
+	public enum MessageType
 	{
-		public MessageType ()
-		{
-		}
+		NONE = 0,
+		EnemyDestroyed = 1
 	}
 }
-

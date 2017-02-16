@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Entities;
+﻿using Assets.Scripts.MessageBus;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +13,7 @@ public class DestroyByContact : MonoBehaviour
 
             if (other.tag == "Bolt")
             {
-                ScoreFactory.GetScore().AddScore();
+				MessageBus.Instance.SendMessage (new EnemyDestroyedMessage ());
             }         
         }
     }

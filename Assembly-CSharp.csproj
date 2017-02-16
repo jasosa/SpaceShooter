@@ -54,6 +54,13 @@
     <Compile Include="Assets\Scripts\FormwardRandomSpeedMover.cs" />
     <Compile Include="Assets\Scripts\ForwardMover.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
+    <Compile Include="Assets\Scripts\MessageBus\EnemyDestroyedMessage.cs" />
+    <Compile Include="Assets\Scripts\MessageBus\MessageBus.cs" />
+    <Compile Include="Assets\Scripts\MessageBus\MessageHandler.cs" />
+    <Compile Include="Assets\Scripts\MessageBus\MessageSubscriberController.cs" />
+    <Compile Include="Assets\Scripts\MessageBus\MessageSusbscriber.cs" />
+    <Compile Include="Assets\Scripts\MessageBus\MessageType.cs" />
+    <Compile Include="Assets\Scripts\MessageHandlers\EnemyDestroyedMessageHandler.cs" />
     <Compile Include="Assets\Scripts\PositionByBoundaryController.cs" />
     <Compile Include="Assets\Scripts\RandomRotator.cs" />
     <Compile Include="Assets\Scripts\ShipMover.cs" />
@@ -89,7 +96,6 @@
     <Reference Include="UnityEngine.VR">
       <HintPath>..\..\..\..\Applications\Unity\Unity.app\Contents\UnityExtensions\Unity\UnityVR\RuntimeEditor\UnityEngine.VR.dll</HintPath>
     </Reference>
-    <Compile Include="Assets\Scripts\MessageBus\MessageType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
