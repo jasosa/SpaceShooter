@@ -9,14 +9,19 @@ namespace Assets.Scripts.Entities
     {
         private int scorePoints = 0;
 
-        public void AddScore()
+        public void AddScore(int points)
         {
-            scorePoints++;
+            scorePoints += points;
         }
 
         public int GetPoints()
         {
             return scorePoints;
+        }
+
+        public void Reset()
+        {
+            scorePoints = 0;
         }
     }
 }

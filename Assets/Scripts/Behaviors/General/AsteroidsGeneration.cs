@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Entities;
+using Assets.Scripts.UnityEvents;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,13 +9,13 @@ public class AsteroidsGeneration : MonoBehaviour {
 
     private bool continueGenerating = true;
 
-    public GameObject hazard;
+    public GameObject[] hazards;
     public Vector3 spawnValues;
     public float spawnWait;
     public float startWait;
         
 	[SerializeField]
-	public UnityEvent onAsteroidKilled = new UnityEvent();
+	public AsteroidDestructionEvent onAsteroidKilled = new AsteroidDestructionEvent();
 
     void Start()
     {
@@ -26,19 +27,20 @@ public class AsteroidsGeneration : MonoBehaviour {
         yield return new WaitForSeconds(startWait);
         while (continueGenerating)
         {
+            var hazard = hazards[Random.Range(0, hazards.Length)];
             Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
             Quaternion spawnRotation = Quaternion.identity;
             var myHazard = Instantiate(hazard, spawnPosition, spawnRotation);
 			var enemyScript = myHazard.GetComponent("ItemDestructionByContact") as ItemDestructionByContact;
-			enemyScript.onItemDestruction.AddListener (new UnityAction(ThrowAsteroidKilledEvent));
+			enemyScript.onItemDestruction.AddListener (new UnityAction<string>(ThrowAsteroidKilledEvent));
             yield return new WaitForSeconds(spawnWait);
         }
     }
 
-	private void ThrowAsteroidKilledEvent()
+	private void ThrowAsteroidKilledEvent(string asteroidType)
 	{
 		Debug.Log ("Asteroid killed");
-		onAsteroidKilled.Invoke ();
+		onAsteroidKilled.Invoke (asteroidType);
 	}
 
     public void StopsGeneration()

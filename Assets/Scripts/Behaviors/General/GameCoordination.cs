@@ -1,10 +1,11 @@
 ﻿using Assets.Scripts.Entities;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Assets.Scripts.PlainEntities;
 
 public class GameCoordination : MonoBehaviour {
 
-	private bool gameOver = false;
-    private bool restart = false;
+	private bool gameOver = false;    
 
     public GUIText scoreText;
     public GUIText restartText;
@@ -12,28 +13,43 @@ public class GameCoordination : MonoBehaviour {
 
     void Start()
 	{
+        gameOver = false;
         restartText.text = string.Empty;
-        gameOverText.text = string.Empty;        
+        gameOverText.text = string.Empty;
+        ScoreFactory.GetScore().Reset();
     }
 
 	public void GameEnds()
 	{
         Debug.Log("Game ends");
-		gameOver = true;
-        restart = true;
+		gameOver = true;             
         gameOverText.text = "Game Over!";
-        restartText.text = "Press 'R' for restart";        
+        restartText.text = "Press 'R' for restart";
     }
 
-	public void AddScore(){
-		Debug.Log ("Score added");
-		ScoreFactory.GetScore ().AddScore ();
+	public void AddScore(string asteroidType){		
+        ScoreFactory.GetScore ().AddScore (DestroyedAsteroidsInfoList.GetInfo(asteroidType).Points);
 	}
 
 	private void Update()
 	{
-		UpdateScoreText();
+        if (gameOver)
+        {
+            CheckRestart();
+        }
+        else
+        {
+            UpdateScoreText();
+        }
 	}
+
+    private void CheckRestart()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
 
     void UpdateScoreText()
     {
