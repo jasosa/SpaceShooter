@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\Behaviors\Collisions\ItemDestructionByContact.cs" />
     <Compile Include="Assets\Scripts\Behaviors\Collisions\PlayerDestroyedByContact.cs" />
     <Compile Include="Assets\Scripts\Behaviors\General\AsteroidsGeneration.cs" />
+    <Compile Include="Assets\Scripts\Behaviors\General\BackgroundScroll.cs" />
     <Compile Include="Assets\Scripts\Behaviors\General\GameCoordination.cs" />
     <Compile Include="Assets\Scripts\Behaviors\Movement\FormwardRandomSpeedMover.cs" />
     <Compile Include="Assets\Scripts\Behaviors\Movement\ForwardMover.cs" />
