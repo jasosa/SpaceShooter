@@ -3,22 +3,24 @@
 namespace Assets.Scripts.PlainEntities
 {
     //TODO: Convert in non-static class and use DI
-    public static class DestroyedAsteroidsInfoList
+    public static class DestroyedEnemiesInfoList
     {
-        private static Dictionary<string, DestroyedAsteroidInfo> destroyedAsteroidsInfoList;
+        private static Dictionary<string, DestroyedEnemyInfo> destroyedEnemiesInfoList;
 
-        static DestroyedAsteroidsInfoList()
+        // Based on tags. But if we use the same tag for all enemies to simplify Explosion script... how we can do the same we are doing here?
+        static DestroyedEnemiesInfoList()
         {
-            destroyedAsteroidsInfoList = new Dictionary<string, DestroyedAsteroidInfo>();
-            destroyedAsteroidsInfoList.Add("asteroid01", new DestroyedAsteroidInfo() { Points = 1 }); 
-            destroyedAsteroidsInfoList.Add("asteroid02", new DestroyedAsteroidInfo() { Points = 3 });
-            destroyedAsteroidsInfoList.Add("asteroid03", new DestroyedAsteroidInfo() { Points = 5 });            
+            destroyedEnemiesInfoList = new Dictionary<string, DestroyedEnemyInfo>();
+            destroyedEnemiesInfoList.Add("asteroid01", new DestroyedEnemyInfo() { Points = 1 }); 
+            destroyedEnemiesInfoList.Add("asteroid02", new DestroyedEnemyInfo() { Points = 3 });
+            destroyedEnemiesInfoList.Add("asteroid03", new DestroyedEnemyInfo() { Points = 5 });
+            destroyedEnemiesInfoList.Add("EnemyShip", new DestroyedEnemyInfo() { Points = 10 });
         }
 
-        //TODO: Ensure that asteroidType exists, otherwise return non-value object
-        public static DestroyedAsteroidInfo GetInfo(string asteroidType)
+        //TODO: Ensure that enemyTpe exists, otherwise return non-value object
+        public static DestroyedEnemyInfo GetInfo(string enemyType)
         {
-            return destroyedAsteroidsInfoList[asteroidType];
+            return destroyedEnemiesInfoList[enemyType];
         }
     }
 }

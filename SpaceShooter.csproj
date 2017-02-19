@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>5.5.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -75,10 +77,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Behaviors\Collisions\AsteroidDestructionByContact.cs" />
     <Compile Include="Assets\Scripts\Behaviors\Collisions\DestructionByBoundary.cs" />
     <Compile Include="Assets\Scripts\Behaviors\Collisions\DestructionByTime.cs" />
+    <Compile Include="Assets\Scripts\Behaviors\Collisions\EnemyDestructionByContact.cs" />
     <Compile Include="Assets\Scripts\Behaviors\Collisions\ExplosionOnCollision.cs" />
-    <Compile Include="Assets\Scripts\Behaviors\Collisions\ItemDestructionByContact.cs" />
     <Compile Include="Assets\Scripts\Behaviors\Collisions\PlayerDestroyedByContact.cs" />
     <Compile Include="Assets\Scripts\Behaviors\General\AsteroidsGeneration.cs" />
     <Compile Include="Assets\Scripts\Behaviors\General\BackgroundScroll.cs" />
@@ -89,13 +92,15 @@
     <Compile Include="Assets\Scripts\Behaviors\Movement\ShipMovement.cs" />
     <Compile Include="Assets\Scripts\Behaviors\Rotation\RandomRotation.cs" />
     <Compile Include="Assets\Scripts\Behaviors\Rotation\TiltRotation.cs" />
+    <Compile Include="Assets\Scripts\Behaviors\Weapons\AutomaticLaserShooting.cs" />
     <Compile Include="Assets\Scripts\Behaviors\Weapons\LaserShoot.cs" />
     <Compile Include="Assets\Scripts\PlainEntities\Boundary.cs" />
-    <Compile Include="Assets\Scripts\PlainEntities\DestroyedAsteroidInfo.cs" />
+    <Compile Include="Assets\Scripts\PlainEntities\DestroyedEnemyInfo.cs" />
     <Compile Include="Assets\Scripts\PlainEntities\DestroyedAsteroidsInfoList.cs" />
     <Compile Include="Assets\Scripts\PlainEntities\Score.cs" />
     <Compile Include="Assets\Scripts\PlainEntities\ScoreFactory.cs" />
     <Compile Include="Assets\Scripts\UnityEvents\AsteroidDestructionEvent.cs" />
+    <Compile Include="Assets\Scripts\UnityEvents\EnemyDestructionEvent.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\TutorialInfo.cs" />
     <Compile Include="Assets\_Completed-Assets\Scripts\Done_BGScroller.cs" />
     <Compile Include="Assets\_Completed-Assets\Scripts\Done_DestroyByBoundary.cs" />

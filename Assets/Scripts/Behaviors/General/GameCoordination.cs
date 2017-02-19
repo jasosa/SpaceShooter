@@ -27,8 +27,9 @@ public class GameCoordination : MonoBehaviour {
         restartText.text = "Press 'R' for restart";
     }
 
-	public void AddScore(string asteroidType){		
-        ScoreFactory.GetScore ().AddScore (DestroyedAsteroidsInfoList.GetInfo(asteroidType).Points);
+	public void AddScore(string enemyType){
+        Debug.Log("Enemy destryoed: " + enemyType);
+        ScoreFactory.GetScore ().AddScore (DestroyedEnemiesInfoList.GetInfo(enemyType).Points);
 	}
 
 	private void Update()

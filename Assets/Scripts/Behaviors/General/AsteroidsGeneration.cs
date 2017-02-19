@@ -1,7 +1,6 @@
 ﻿using Assets.Scripts.Entities;
 using Assets.Scripts.UnityEvents;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -31,15 +30,14 @@ public class AsteroidsGeneration : MonoBehaviour {
             Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
             Quaternion spawnRotation = Quaternion.identity;
             var myHazard = Instantiate(hazard, spawnPosition, spawnRotation);
-			var enemyScript = myHazard.GetComponent("ItemDestructionByContact") as ItemDestructionByContact;
+			var enemyScript = myHazard.GetComponent("AsteroidDestructionByContact") as AsteroidDestructionByContact;
 			enemyScript.onItemDestruction.AddListener (new UnityAction<string>(ThrowAsteroidKilledEvent));
             yield return new WaitForSeconds(spawnWait);
         }
     }
 
 	private void ThrowAsteroidKilledEvent(string asteroidType)
-	{
-		Debug.Log ("Asteroid killed");
+	{		
 		onAsteroidKilled.Invoke (asteroidType);
 	}
 

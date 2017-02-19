@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ExplosionOnCollision : MonoBehaviour {
 
@@ -8,9 +6,21 @@ public class ExplosionOnCollision : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Boundary")
+        if (other.tag == "Boundary")
         {
-            Instantiate(explosion, transform.position, transform.rotation);
+            return;
         }
+
+        if (gameObject.tag == "EnemyShip" && other.tag == "EnemyBolt")
+        {
+            return;
+        }
+
+        if (gameObject.tag == "EnemyShip" && other.tag.StartsWith("asteroid"))
+        {
+            return;
+        }
+
+        Instantiate(explosion, transform.position, transform.rotation);        
     }
 }
