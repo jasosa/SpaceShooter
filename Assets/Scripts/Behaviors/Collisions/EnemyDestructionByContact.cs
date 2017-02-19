@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyDestructionByContact : MonoBehaviour {
 
-    [SerializeField]
+    //non serializable. Event for asteroid prefabs
     public EnemyDestructionEvent onEnemyDestruction = new EnemyDestructionEvent();
 
     // Use this for initialization
@@ -19,7 +19,8 @@ public class EnemyDestructionByContact : MonoBehaviour {
 
         if (killedByBolt(other))
         {
-            Destroy(gameObject);            
+            Destroy(gameObject);
+            Destroy(other.gameObject);
             onEnemyDestruction.Invoke(gameObject.tag);
         }
     }

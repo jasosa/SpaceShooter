@@ -7,7 +7,7 @@ public class ForwardMover : MonoBehaviour {
 
     public float speed;
 	
-	void Start () {
+	void Start () {        
         GetComponent<Rigidbody>().velocity = transform.forward * speed;        
     }
 }

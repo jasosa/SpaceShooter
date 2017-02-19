@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public class AsteroidDestructionByContact : MonoBehaviour
 {
-    [SerializeField]
+    //non serializable. Event for asteroid prefabs
     public AsteroidDestructionEvent onItemDestruction;
 
     public AsteroidDestructionByContact()
@@ -17,6 +17,7 @@ public class AsteroidDestructionByContact : MonoBehaviour
         if (other.tag != "Boundary")
         {
             Destroy(gameObject);
+            Destroy(other.gameObject);
 
             if (other.tag == "Bolt")
             {

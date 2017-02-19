@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>5.5.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -86,6 +84,7 @@
     <Compile Include="Assets\Scripts\Behaviors\General\AsteroidsGeneration.cs" />
     <Compile Include="Assets\Scripts\Behaviors\General\BackgroundScroll.cs" />
     <Compile Include="Assets\Scripts\Behaviors\General\GameCoordination.cs" />
+    <Compile Include="Assets\Scripts\Behaviors\Movement\EvasiveManeuver.cs" />
     <Compile Include="Assets\Scripts\Behaviors\Movement\FormwardRandomSpeedMover.cs" />
     <Compile Include="Assets\Scripts\Behaviors\Movement\ForwardMover.cs" />
     <Compile Include="Assets\Scripts\Behaviors\Movement\PositionByBoundaryController.cs" />
@@ -95,8 +94,8 @@
     <Compile Include="Assets\Scripts\Behaviors\Weapons\AutomaticLaserShooting.cs" />
     <Compile Include="Assets\Scripts\Behaviors\Weapons\LaserShoot.cs" />
     <Compile Include="Assets\Scripts\PlainEntities\Boundary.cs" />
-    <Compile Include="Assets\Scripts\PlainEntities\DestroyedEnemyInfo.cs" />
     <Compile Include="Assets\Scripts\PlainEntities\DestroyedAsteroidsInfoList.cs" />
+    <Compile Include="Assets\Scripts\PlainEntities\DestroyedEnemyInfo.cs" />
     <Compile Include="Assets\Scripts\PlainEntities\Score.cs" />
     <Compile Include="Assets\Scripts\PlainEntities\ScoreFactory.cs" />
     <Compile Include="Assets\Scripts\UnityEvents\AsteroidDestructionEvent.cs" />
