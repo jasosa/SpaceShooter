@@ -1,14 +1,14 @@
-﻿using Assets.Scripts.Entities;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using Assets.Scripts.PlainEntities;
+﻿using Assets.Scripts.PlainEntities;
+using Assets.Scripts.PlainEntities.Dispatcher;
 using System;
+using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using Zenject;
 
 public class GameCoordination : MonoBehaviour {
 
-	private bool gameOver = false;    
-    private BombLevelController bombLevel = new BombLevelController();
+    private bool gameOver = false;    
 
     public UnityEvent onBombActivated;
 
@@ -19,8 +19,33 @@ public class GameCoordination : MonoBehaviour {
 
     public GameCoordination()
     {
-        bombLevel.onBombActivated += BombLevel_onBombActivated;   
-    }   
+        Debug.Log("Game coordination instantiated");               
+    }
+
+    [Inject]
+    public IDispatcher Dispatcher {get;set;}
+
+    [Inject]
+    public IBombLevel BombLevel { get; set; }
+
+    public void GameEnds()
+    {
+        Debug.Log("Game ends");
+        gameOver = true;
+        gameOverText.text = "Game Over!";
+        restartText.text = "Press 'R' for restart";
+    }
+
+    public void AddScore(string enemyType)
+    {
+        Debug.Log("Enemy destryoed: " + enemyType);
+        ScoreFactory.GetScore().AddScore(DestroyedEnemiesInfoList.GetInfo(enemyType).Points);
+    }
+
+    public void DeactivateBomb()
+    {
+        BombLevel.DeactivateBomb();
+    }
 
     void Start()
 	{
@@ -28,32 +53,10 @@ public class GameCoordination : MonoBehaviour {
         restartText.text = string.Empty;
         gameOverText.text = string.Empty;        
         ScoreFactory.GetScore().Reset();
-    }
+        BombLevel.onBombActivated += BombLevel_onBombActivated;
+    }	
 
-	public void GameEnds()
-	{
-        Debug.Log("Game ends");
-		gameOver = true;             
-        gameOverText.text = "Game Over!";
-        restartText.text = "Press 'R' for restart";
-    }
-
-	public void AddScore(string enemyType){
-        Debug.Log("Enemy destryoed: " + enemyType);
-        ScoreFactory.GetScore ().AddScore (DestroyedEnemiesInfoList.GetInfo(enemyType).Points);
-
-        if (ScoreFactory.GetScore().GetPoints() > 500)
-        {
-
-        }
-	}
-
-    public void DeactivateBomb()
-    {
-        bombLevel.DeactivateBomb();
-    }
-
-	private void Update()
+	void Update()
 	{
         if (gameOver)
         {
@@ -63,13 +66,9 @@ public class GameCoordination : MonoBehaviour {
         {
             UpdateScoreText();
             UpdateBombText();
+            Dispatcher.InvokeAll();
         }
-	}
-
-    private void UpdateBombText()
-    {       
-        bombText.text = String.Format("Bomb level: {0}%", bombLevel.BombLevel); 
-    }
+	}   
 
     private void CheckRestart()
     {
@@ -79,15 +78,19 @@ public class GameCoordination : MonoBehaviour {
         }
     }
 
-    private void BombLevel_onBombActivated(object sender, EventArgs e)
-    {
-       Action a = new Action(() => onBombActivated.Invoke());
-       a.Invoke();
-    }
+    private void UpdateBombText()
+    {       
+        bombText.text = String.Format("Bomb level: {0}%", BombLevel.BombLevel); 
+    }   
 
-    void UpdateScoreText()
+    private void UpdateScoreText()
     {
         scoreText.text = "Score: " + ScoreFactory.GetScore().GetPoints();
+    }
+
+    private void BombLevel_onBombActivated(object sender, EventArgs e)
+    {
+        Dispatcher.Enqueue(() => onBombActivated.Invoke());
     }
 }
 

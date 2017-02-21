@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace Assets.Scripts.PlainEntities
 {
-    public class BombLevelController
+    public class BombLevelController : IBombLevel
     {
         public event EventHandler onBombActivated;
 
