@@ -21,6 +21,11 @@ public class ExplosionOnCollision : MonoBehaviour {
             return;
         }
 
+        if (gameObject.tag == "Player" && other.CompareTag("Bolt"))
+        {
+            return;
+        }
+
         Instantiate(explosion, transform.position, transform.rotation);        
     }
 }

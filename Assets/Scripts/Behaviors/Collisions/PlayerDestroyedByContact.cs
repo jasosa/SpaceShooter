@@ -13,10 +13,12 @@ public class PlayerDestroyedByContact : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Boundary")
-        {   
-            Destroy(gameObject);
-			onPlayerDestroyed.Invoke ();
-		}
+        if (other.tag == "Boundary" || other.tag == "Bolt")
+        {
+            return;
+        }
+
+        Destroy(gameObject);
+        onPlayerDestroyed.Invoke();
     }
 }
