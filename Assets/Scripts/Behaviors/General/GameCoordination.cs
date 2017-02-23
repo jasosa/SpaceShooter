@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Zenject;
 
 public class GameCoordination : MonoBehaviour {
@@ -16,10 +17,11 @@ public class GameCoordination : MonoBehaviour {
     public GUIText restartText;
     public GUIText gameOverText;
     public GUIText bombText;
+    public GameObject bombStatus;
 
     public GameCoordination()
     {
-        Debug.Log("Game coordination instantiated");               
+        //Debug.Log("Game coordination instantiated");               
     }
 
     [Inject]
@@ -33,18 +35,19 @@ public class GameCoordination : MonoBehaviour {
         Debug.Log("Game ends");
         gameOver = true;
         gameOverText.text = "Game Over!";
-        restartText.text = "Press 'R' for restart";
+        restartText.text = "Press 'R' for restart";        
     }
 
     public void AddScore(string enemyType)
     {
-        Debug.Log("Enemy destryoed: " + enemyType);
+        //Debug.Log("Enemy destryoed: " + enemyType);
         ScoreFactory.GetScore().AddScore(DestroyedEnemiesInfoList.GetInfo(enemyType).Points);
     }
 
     public void DeactivateBomb()
     {
         BombLevel.DeactivateBomb();
+        bombStatus.SetActive(false);
     }
 
     void Start()
@@ -80,7 +83,7 @@ public class GameCoordination : MonoBehaviour {
 
     private void UpdateBombText()
     {       
-        bombText.text = String.Format("Bomb level: {0}%", BombLevel.BombLevel); 
+        bombText.text = String.Format("{0}%", BombLevel.BombLevel); 
     }   
 
     private void UpdateScoreText()
@@ -90,6 +93,7 @@ public class GameCoordination : MonoBehaviour {
 
     private void BombLevel_onBombActivated(object sender, EventArgs e)
     {
+        Dispatcher.Enqueue(() =>bombStatus.SetActive(true));
         Dispatcher.Enqueue(() => onBombActivated.Invoke());
     }
 }

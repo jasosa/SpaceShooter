@@ -6,10 +6,11 @@ public class BombShooting : MonoBehaviour
 {
     public UnityEvent onBombShooted;
 
-    public GameObject shoot;
-    public Transform shootSpawn;
+    public GameObject sphere;
+    public Transform sphereTransform;
 
     private bool bombEnabled = true;
+    private int scaleRate = 30;
 
     public void ActivateBomb()
     {
@@ -26,21 +27,15 @@ public class BombShooting : MonoBehaviour
 
     private IEnumerator ThrowBoomb()
     {
-        for (int i = 0; i < 3; i++)
-        {
-            GetComponent<AudioSource>().Play();
-            Instantiate(shoot, shootSpawn.position, shootSpawn.rotation);
-            Instantiate(shoot, shootSpawn.position, shootSpawn.rotation *= Quaternion.Euler(0, 45, 0));
-            Instantiate(shoot, shootSpawn.position, shootSpawn.rotation *= Quaternion.Euler(0, 90, 0));
-            Instantiate(shoot, shootSpawn.position, shootSpawn.rotation *= Quaternion.Euler(0, 135, 0));
-            Instantiate(shoot, shootSpawn.position, shootSpawn.rotation *= Quaternion.Euler(0, 180, 0));
-            Instantiate(shoot, shootSpawn.position, shootSpawn.rotation *= Quaternion.Euler(0, 225, 0));
-            Instantiate(shoot, shootSpawn.position, shootSpawn.rotation *= Quaternion.Euler(0, 270, 0));
-            Instantiate(shoot, shootSpawn.position, shootSpawn.rotation *= Quaternion.Euler(0, 315, 0));
-            yield return new WaitForSeconds(0.2f);
+        bombEnabled = false;
+        GetComponent<AudioSource>().Play();
+        for (int i = 0; i < 30; i++)
+        {           
+            sphereTransform.localScale += new Vector3(scaleRate, scaleRate, scaleRate) * Time.deltaTime;           
+            yield return new WaitForSeconds(0.01f);
         }
 
-        bombEnabled = false;
+        sphereTransform.localScale = new Vector3(0, 0, 0);        
         onBombShooted.Invoke();
     }
 }

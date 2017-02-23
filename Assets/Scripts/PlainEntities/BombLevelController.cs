@@ -26,7 +26,7 @@ namespace Assets.Scripts.PlainEntities
         {
             for (int i = 0; BombLevel < 100; i++)
             {
-                BombLevel = i*20;
+                BombLevel = i*5;
                 Thread.Sleep(1000);
             }
 

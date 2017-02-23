@@ -17,7 +17,7 @@ public class AsteroidsGeneration : MonoBehaviour {
     public float startWait;
         
 	[SerializeField]
-	public AsteroidDestructionEvent onAsteroidKilled = new AsteroidDestructionEvent();
+	public EnemyDestructionEvent onEnemyKilled = new EnemyDestructionEvent();
 
     private Dictionary<string, GameObject[]> allLevelsHazard;
 
@@ -48,12 +48,11 @@ public class AsteroidsGeneration : MonoBehaviour {
                     case "asteroid01":
                     case "asteroid02":
                     case "asteroid03":
-                        var asteroidScript = myHazard.GetComponent("AsteroidDestructionByContact") as AsteroidDestructionByContact;
-                        asteroidScript.onItemDestruction.AddListener(new UnityAction<string>(ThrowAsteroidKilledEvent));
-                        break;
-                    case "EnemyShip":                    
+                    case "EnemyShip":
                         var enemyScript = myHazard.GetComponent("EnemyDestructionByContact") as EnemyDestructionByContact;
                         enemyScript.onEnemyDestruction.AddListener(new UnityAction<string>(ThrowAsteroidKilledEvent));
+                        break;
+                    default:
                         break;
                 }
 
@@ -66,8 +65,8 @@ public class AsteroidsGeneration : MonoBehaviour {
 
     private void ThrowAsteroidKilledEvent(string asteroidType)
     {
-        Debug.Log("Enemy killed: " + asteroidType);
-        onAsteroidKilled.Invoke(asteroidType);
+        //Debug.Log("Enemy killed: " + asteroidType);
+        onEnemyKilled.Invoke(asteroidType);
     }
 
     public void StopsGeneration()

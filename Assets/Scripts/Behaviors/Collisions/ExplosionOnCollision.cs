@@ -21,11 +21,11 @@ public class ExplosionOnCollision : MonoBehaviour {
             return;
         }
 
-        if (gameObject.tag == "Player" && other.CompareTag("Bolt"))
+        if (gameObject.tag == "Player" && (other.CompareTag("Bolt") || other.CompareTag("Bomb")))
         {
             return;
         }
 
-        Instantiate(explosion, transform.position, transform.rotation);        
+        Instantiate(explosion, transform.position, transform.rotation);
     }
 }

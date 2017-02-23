@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.UnityEvents;
+﻿using System;
+using Assets.Scripts.UnityEvents;
 using UnityEngine;
 
 public class EnemyDestructionByContact : MonoBehaviour {
@@ -17,12 +18,21 @@ public class EnemyDestructionByContact : MonoBehaviour {
             return;
         }
 
-        if (killedByBolt(other))
+        if (killedByBolt(other) || killedByBomb(other))
         {
-            Destroy(gameObject);
-            Destroy(other.gameObject);
+            Destroy(gameObject);            
             onEnemyDestruction.Invoke(gameObject.tag);
+
+            if (killedByBolt(other))
+            {
+                Destroy(other.gameObject);
+            }
         }
+    }
+
+    private bool killedByBomb(Collider other)
+    {
+        return other.tag == "Bomb";
     }
 
     private static bool killedByBolt(Collider other)

@@ -10,7 +10,7 @@ namespace Assets.Scripts
     {
         public override void InstallBindings()
         {
-            Debug.Log("Installing bindings...");
+            //Debug.Log("Installing bindings...");
             Container.Bind<IDispatcher>().To<Dispatcher>().AsSingle();
             Container.Bind<IBombLevel>().To<BombLevelController>().AsSingle();
 
