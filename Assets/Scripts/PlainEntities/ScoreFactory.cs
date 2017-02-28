@@ -7,13 +7,13 @@ namespace Assets.Scripts.PlainEntities
 {
     public static class ScoreFactory
     {
-        public static Score score;
+        public static ScoreUpdater score;
 
-        public static Score GetScore()
+        public static ScoreUpdater GetScore()
         {
             if (score == null)
             {
-                score = new Score();
+                score = new ScoreUpdater();
             }
 
             return score;

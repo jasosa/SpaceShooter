@@ -30,6 +30,9 @@ public class GameCoordination : MonoBehaviour {
     [Inject]
     public IBombLevel BombLevel { get; set; }
 
+    [Inject]
+    public IScoreUpdater ScoreUpdater { get; set; }    
+
     public void GameEnds()
     {
         Debug.Log("Game ends");
@@ -40,8 +43,7 @@ public class GameCoordination : MonoBehaviour {
 
     public void AddScore(string enemyType)
     {
-        //Debug.Log("Enemy destryoed: " + enemyType);
-        ScoreFactory.GetScore().AddScore(DestroyedEnemiesInfoList.GetInfo(enemyType).Points);
+        ScoreUpdater.AddScore(DestroyedEnemiesInfoList.GetInfo(enemyType).Points);        
     }
 
     public void DeactivateBomb()
@@ -54,8 +56,8 @@ public class GameCoordination : MonoBehaviour {
 	{
         gameOver = false;
         restartText.text = string.Empty;
-        gameOverText.text = string.Empty;        
-        ScoreFactory.GetScore().Reset();
+        gameOverText.text = string.Empty;
+        ScoreUpdater.Reset();
         BombLevel.onBombActivated += BombLevel_onBombActivated;
     }	
 
@@ -64,14 +66,14 @@ public class GameCoordination : MonoBehaviour {
         if (gameOver)
         {
             CheckRestart();
-        }
+        }        
         else
         {
             UpdateScoreText();
             UpdateBombText();
             Dispatcher.InvokeAll();
-        }
-	}   
+        }       
+    }    
 
     private void CheckRestart()
     {
@@ -88,12 +90,12 @@ public class GameCoordination : MonoBehaviour {
 
     private void UpdateScoreText()
     {
-        scoreText.text = "Score: " + ScoreFactory.GetScore().GetPoints();
+        scoreText.text = "Score: " + ScoreUpdater.GetScore();
     }
 
     private void BombLevel_onBombActivated(object sender, EventArgs e)
     {
-        Dispatcher.Enqueue(() =>bombStatus.SetActive(true));
+        Dispatcher.Enqueue(() => bombStatus.SetActive(true));
         Dispatcher.Enqueue(() => onBombActivated.Invoke());
     }
 }

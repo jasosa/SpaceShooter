@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Assets.Scripts.PlainEntities
+﻿namespace Assets.Scripts.PlainEntities
 {
-    public class Score
+    public class ScoreUpdater : IScoreUpdater
     {
         private int scorePoints = 0;
 
@@ -14,7 +9,7 @@ namespace Assets.Scripts.PlainEntities
             scorePoints += points;
         }
 
-        public int GetPoints()
+        public int GetScore()
         {
             return scorePoints;
         }

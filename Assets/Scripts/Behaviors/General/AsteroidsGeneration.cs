@@ -19,14 +19,16 @@ public class AsteroidsGeneration : MonoBehaviour {
 	[SerializeField]
 	public EnemyDestructionEvent onEnemyKilled = new EnemyDestructionEvent();
 
-    private Dictionary<string, GameObject[]> allLevelsHazard;
+    private GameObject[] allLevelsHazard;
 
     public AsteroidsGeneration()
-    {        
+    {
+       
     }
 
     void Start()
     {
+        allLevelsHazard = (GameObject[]) levelOneHazards.Clone();
         StartCoroutine(SpawnWaves());
     }
 
@@ -38,24 +40,12 @@ public class AsteroidsGeneration : MonoBehaviour {
         {
             for (int i = 0; i < 10; i++)
             {
-                var hazard = levelOneHazards[Random.Range(0, levelOneHazards.Length)];
+                var hazard = allLevelsHazard[Random.Range(0, allLevelsHazard.Length)];
                 Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
                 Quaternion spawnRotation = Quaternion.identity;
                 var myHazard = Instantiate(hazard, spawnPosition, spawnRotation);
-
-                switch (hazard.tag)
-                {
-                    case "asteroid01":
-                    case "asteroid02":
-                    case "asteroid03":
-                    case "EnemyShip":
-                        var enemyScript = myHazard.GetComponent("EnemyDestructionByContact") as EnemyDestructionByContact;
-                        enemyScript.onEnemyDestruction.AddListener(new UnityAction<string>(ThrowAsteroidKilledEvent));
-                        break;
-                    default:
-                        break;
-                }
-
+                var enemyScript = myHazard.GetComponent("EnemyDestructionByContact") as EnemyDestructionByContact;
+                enemyScript.onEnemyDestruction.AddListener(new UnityAction<string>(ThrowAsteroidKilledEvent));
                 yield return new WaitForSeconds(startWait);
             }
 
@@ -64,13 +54,19 @@ public class AsteroidsGeneration : MonoBehaviour {
     }
 
     private void ThrowAsteroidKilledEvent(string asteroidType)
-    {
-        //Debug.Log("Enemy killed: " + asteroidType);
+    {        
         onEnemyKilled.Invoke(asteroidType);
     }
 
     public void StopsGeneration()
     {
         continueGenerating = false;
+    }
+
+    public void ChangeEnemies()
+    {
+        continueGenerating = false;
+        allLevelsHazard = (GameObject[]) levelTwoHazards.Clone();
+        continueGenerating = true;
     }
 }

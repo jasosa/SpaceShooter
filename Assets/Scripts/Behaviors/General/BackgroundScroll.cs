@@ -11,6 +11,8 @@ public class BackgroundScroll : MonoBehaviour {
 
     private Vector3 startPosition;
 
+    private float oldScrollSpeed;
+
     // Use this for initialization
     void Start () {
         startPosition = transform.position;
@@ -20,5 +22,5 @@ public class BackgroundScroll : MonoBehaviour {
 	void Update () {
         float newPosition = Mathf.Repeat(Time.time * scrollSpeed, tiledSizeZ);
         transform.position = startPosition + Vector3.forward * newPosition;
-	}
+	}   
 }

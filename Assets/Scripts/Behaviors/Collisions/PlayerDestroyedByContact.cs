@@ -12,8 +12,7 @@ public class PlayerDestroyedByContact : MonoBehaviour
 	}
 
     void OnTriggerEnter(Collider other)
-    {
-        Debug.Log(other.tag);
+    {       
         if (other.tag == "Boundary" || other.tag == "Bolt" || other.tag == "Bomb")
         {
             return;

@@ -13,6 +13,7 @@ namespace Assets.Scripts
             //Debug.Log("Installing bindings...");
             Container.Bind<IDispatcher>().To<Dispatcher>().AsSingle();
             Container.Bind<IBombLevel>().To<BombLevelController>().AsSingle();
+            Container.Bind<IScoreUpdater>().To<ScoreUpdater>().AsSingle();
 
             // TODO: remove or create a method
             //var systems = Container.ResolveAll<IDispatcher>();
